@@ -37,3 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const weatherCard = createWeatherCard(data, true);
         todaySection.appendChild(weatherCard);
     }
+
+    function displayForecast(data) {
+        forecastSection.innerHTML = ''; // Clear previous data
+        for (let i = 0; i < 40; i += 8) { // Assuming forecast data is every 3 hours
+            const forecastData = data.list[i];
+            const forecastCard = createWeatherCard(forecastData);
+            forecastSection.appendChild(forecastCard);
+        }
+    }
