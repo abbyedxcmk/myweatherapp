@@ -31,3 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
             displayError("Error fetching data. Please try again.");
         });
     }
+
+    function displayCurrentWeather(data) {
+        todaySection.innerHTML = ''; // Clear previous data
+        const weatherCard = createWeatherCard(data, true);
+        todaySection.appendChild(weatherCard);
+    }
