@@ -65,3 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         return card;
     }
+
+    function addToHistory(city) {
+        if (!localStorage.getItem('weatherSearchHistory')?.includes(city)) {
+            let history = JSON.parse(localStorage.getItem('weatherSearchHistory')) || [];
+            history.unshift(city);
+            localStorage.setItem('weatherSearchHistory', JSON.stringify(history));
+            updateHistoryList();
+        }
+    }
+    
