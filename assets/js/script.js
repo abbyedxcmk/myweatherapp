@@ -74,4 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
             updateHistoryList();
         }
     }
-    
+
+    function updateHistoryList() {
+        historyList.innerHTML = ''; // Clear existing list
+        const history = JSON.parse(localStorage.getItem('weatherSearchHistory')) || [];
+        history.forEach(city => {
+            const historyItem = document.createElement('button');
+            historyItem.className = 'list-group-item list-group-item-action';
+            historyItem.textContent = city;
+            historyItem.onclick = () => fetchWeatherData(city);
+            historyList.appendChild(historyItem);
+        });
+    }
