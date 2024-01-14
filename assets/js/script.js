@@ -15,3 +15,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         fetchWeatherData(city);
     });
+
+    function fetchWeatherData(city) {
+        const weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+        const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+    
+        Promise.all([
+            fetch(weatherApiUrl).then(response => response.json()),
+            fetch(forecastApiUrl).then(response => response.json()),
+        ]).then(([currentWeatherData, forecastData]) => {
+            displayCurrentWeather(currentWeatherData);
+            displayForecast(forecastData);
+            addToHistory(city);
+        }).catch(() => {
+            displayError("Error fetching data. Please try again.");
+        });
+    }
