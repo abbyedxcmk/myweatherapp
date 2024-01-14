@@ -46,3 +46,22 @@ document.addEventListener('DOMContentLoaded', function () {
             forecastSection.appendChild(forecastCard);
         }
     }
+
+    function createWeatherCard(data, isCurrent = false) {
+        const card = document.createElement('div');
+        card.className = isCurrent ? 'current-weather' : 'forecast-card';
+        
+        const date = new Date(data.dt * 1000).toLocaleDateString('en-GB');
+        const temp = data.main.temp;
+        const icon = data.weather[0].icon;
+        const description = data.weather[0].description;
+        
+        card.innerHTML = `
+            <h3>${isCurrent ? data.name + ' (' + date + ')' : date}</h3>
+            <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}" />
+            <p>Temp: ${temp} °C</p>
+            ${isCurrent ? `<p>Wind: ${data.wind.speed} KPH</p>` : ''}
+            <p>Humidity: ${data.main.humidity}%</p>
+        `;
+        return card;
+    }
