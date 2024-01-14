@@ -86,3 +86,10 @@ document.addEventListener('DOMContentLoaded', function () {
             historyList.appendChild(historyItem);
         });
     }
+
+    function displayError(message) {
+        todaySection.innerHTML = `<div class="alert alert-danger" role="alert">${message}</div>`;
+    }
+
+    updateHistoryList();
+});
