@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const history = JSON.parse(localStorage.getItem('weatherSearchHistory')) || [];
         history.forEach(city => {
             const historyItem = document.createElement('button');
-            historyItem.className = 'list-group-item list-group-item-action';
+            historyItem.className = 'history-btn';
             historyItem.textContent = city;
             historyItem.onclick = () => fetchWeatherData(city);
             historyList.appendChild(historyItem);
