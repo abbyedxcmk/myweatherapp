@@ -1727,13 +1727,15 @@ label form [type='radio'] {
 
 .current-weather {
   border:1px solid #000000;
-  padding-left: 10px;
-  
+  padding-left: 15px;
+  padding-top: 15px;
 }
 
 .five-day-card {
   position: relative;
+  text-align: center;
   width: 18%;
+  padding-top: 15px;
   padding-right: 15px;
   padding-left: 15px;
   color: #fff;
