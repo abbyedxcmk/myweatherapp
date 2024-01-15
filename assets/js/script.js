@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function createWeatherCard(data, isCurrent = false) {
         const card = document.createElement('div');
-        card.className = isCurrent ? 'current-weather' : 'forecast-card';
+        card.className = isCurrent ? 'current-weather five-day-card' : 'forecast-card five-day-card';
         
         const date = new Date(data.dt * 1000).toLocaleDateString('en-GB');
         const temp = data.main.temp;
