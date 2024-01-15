@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const todaySection = document.getElementById('today');
     const forecastSection = document.getElementById('forecast');
     const apiKey = 'd241fa07cbe7b4cf7ea61ba4661255da';
-
     searchForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const city = searchInput.value.trim();
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ]).then(([currentWeatherData, forecastData]) => {
             displayCurrentWeather(currentWeatherData);
             displayForecast(forecastData);
-            addToHistory(city);
+            addToHistory(currentWeatherData.name);
         }).catch(() => {
             displayError("Error fetching data. Please try again.");
         });
