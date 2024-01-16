@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             displayError('Please enter a city name.');
             return;
         }
+
         // Call the fetchWeatherData function to get weather data for the entered city
         fetchWeatherData(city);
     });
@@ -30,12 +31,16 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(weatherApiUrl).then(response => response.json()),
             fetch(forecastApiUrl).then(response => response.json()),
         ]).then(([currentWeatherData, forecastData]) => {
+
             // Display the current weather and forecast
             displayCurrentWeather(currentWeatherData);
             displayForecast(forecastData);
-            // Add the city to the search history
+
+            // Add the city to the search history by taking the name of the city from the API
+            // This will resolve bad input formats e.g LOndOn,rome,PARIS,mANchester      
             addToHistory(currentWeatherData.name);
         }).catch(() => {
+
             // Display an error message if there's an issue with fetching data
             displayError("Error fetching data. Please try again.");
         });
@@ -61,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to create a weather card
     function createWeatherCard(data, isCurrent = false) {
         const card = document.createElement('div');
+
+        // Add appropriate classes to the right card type
         card.className = isCurrent ? 'current-weather ' : 'forecast-card five-day-card';
         
         const date = new Date(data.dt * 1000).toLocaleDateString('en-GB');
@@ -68,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const icon = data.weather[0].icon;
         const description = data.weather[0].description;
         
+        // Add inner content of the card
         card.innerHTML = `
             <h3>${isCurrent ? data.name + ' (' + date + ')' : date}</h3>
             <img src="http://openweathermap.org/img/wn/${icon}.png" alt="${description}" />
@@ -75,10 +83,11 @@ document.addEventListener('DOMContentLoaded', function () {
             ${isCurrent ? `<p>Wind: ${data.wind.speed} KPH</p>` : ''}
             <p>Humidity: ${data.main.humidity}%</p>
         `;
+
         return card;
     }
 
-    // Function to add a city to the search history
+    // Function to add a city button to the search history and city name to localstorage
     function addToHistory(city) {
         if (!localStorage.getItem('weatherSearchHistory')?.includes(city)) {
             let history = JSON.parse(localStorage.getItem('weatherSearchHistory')) || [];
@@ -88,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to update the search history list in the UI
+    // Function to update the search history list display
     function updateHistoryList() {
         historyList.innerHTML = ''; // Clear existing list
         const history = JSON.parse(localStorage.getItem('weatherSearchHistory')) || [];
